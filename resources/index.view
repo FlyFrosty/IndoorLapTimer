@@ -1,0 +1,50 @@
+<svg>
+  <!--Main View-->
+  <svg id="mainView" display = "inline">
+    <text id="myEnd" pointer-events="visible" />
+    <rect id="myTouch" width="100%" height="100%" fill="white" opacity="0" y="90" pointer-events="visible" />
+
+    <svg id="myLaps" fill = "white" display = "inline" pointer-events="visible">
+      <text id="lapCount" fill="inherit" pointer-events="visible" display = "inherit" pointer-events="visible"/>
+      <text id="lapTime" fill="inherit" pointer-events="visible" display = "inherit" pointer-events="visible"/>
+    </svg>
+  </svg>
+  
+  <!--Summary View-->
+  <svg id ="summary" display = "none">
+    <svg id="summaryView" fill = "purple" display = "inherit" opacity = "1">
+      <text id = "totLaps" fill = "inherit" display = "inherit"/> 
+      <text id = "totTime" fill = "inherit" display = "inherit"/>
+      <text id = "lapMrkr" fill = "inherit" display = "inherit"/>
+      <text id = "timeMrkr" fill = "inherit" display = "inherit"/>
+    </svg>
+    
+    <defs>
+      <symbol id="my-tile-item" href="#tile-list-item" focusable="false" 
+              pointer-events="none" system-events="all" display="none">
+        <text id="text" />
+        <rect id="tile-divider-bottom" class="tile-divider-bottom" />
+      </symbol>
+    </defs>
+  
+    <use id="my-list" href="#tile-list" opacity = "0.6">
+      <var id="virtual" value="1" />
+      <var id="reorder-enabled" value="0" />
+      <var id="peek-enabled" value="0" />
+      <var id="separator-height-bottom" value="2" />
+  
+      <use id="my-pool" href="#tile-list-pool">
+        <use id="my-pool[0]" href="#my-tile-item" class="tile-list-item" />
+        <use id="my-pool[1]" href="#my-tile-item" class="tile-list-item" />
+        <use id="my-pool[2]" href="#my-tile-item" class="tile-list-item" />
+        <use id="my-pool[3]" href="#my-tile-item" class="tile-list-item" />
+        <use id="my-pool[4]" href="#my-tile-item" class="tile-list-item" />
+        <use id="my-pool[5]" href="#my-tile-item" class="tile-list-item" />
+        <use id="my-pool[6]" href="#my-tile-item" class="tile-list-item" />
+        <use id="my-pool[7]" href="#my-tile-item" class="tile-list-item" />
+        <use id="my-pool[8]" href="#my-tile-item" class="tile-list-item" />
+        <use id="my-pool[9]" href="#my-tile-item" class="tile-list-item" />
+      </use>
+    </use>
+  </svg>
+</svg>

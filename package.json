@@ -1,0 +1,26 @@
+{
+  "devDependencies": {
+    "@fitbit/sdk": "~6.1.0"
+  },
+  "fitbit": {
+    "appUUID": "dbcf8db4-95e1-4197-a2f3-8d3259a19592",
+    "appType": "app",
+    "appDisplayName": "Indoor Lap Timer",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#3f51b5",
+    "requestedPermissions": [
+      "access_activity",
+      "access_exercise"
+    ],
+    "buildTargets": [
+      "atlas",
+      "vulcan"
+    ],
+    "i18n": {
+      "en-US": {
+        "name": "Indoor Lap Timer"
+      }
+    },
+    "defaultLanguage": "en-US"
+  }
+}

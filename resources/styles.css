@@ -1,0 +1,84 @@
+.background {
+  viewport-fill: black;
+}
+
+#myLaps {
+  fill: white;
+}
+
+#lapCount {
+  font-size: 110;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: end;
+  x: 80%;
+  y: 55%;
+  fill: white;
+}
+
+#lapTime {
+  font-size: 90;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 50%;
+  y: 93%;
+  fill: white;  
+}
+
+
+#myEnd {
+  font-size: 45;
+  font-family: System-Bold;
+  text-length: 25;
+  text-anchor: start;
+  x: 10%;
+  y: 20%;
+  fill: blue;
+}
+
+#totLaps {
+  font-size: 120;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 75%;
+  y: 40%;
+  fill: white;
+}
+
+#totTime {
+  font-size: 120;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: middle;
+  x: 50%;
+  y: 92%;
+  fill: white;
+}
+
+#lapMrkr {
+  font-size: 24;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: 68%;
+  y: 10%+5;
+  fill: white;
+}
+
+#timeMrkr {
+  font-size: 24;
+  font-family: System-Bold;
+  text-length: 32;
+  text-anchor: start;
+  x: 68%;
+  y: 60%;
+  fill: white;
+}
+
+text { font-size: 32; font-family: System-Regular; font-weight: regular; text-length: 32; fill: white; }
+
+.tile-list-item { height: 55; }
+
+.tile-list-item text { height: 24; font-family: System-Regular; fill: white; x: 55; }

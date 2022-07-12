@@ -22,3 +22,4 @@ export function minSec(numTime) {
   return totDifMin + ":" + totDifSec;  
 };
  
+

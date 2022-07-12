@@ -26,14 +26,14 @@ let lapCount = document.getElementById("lapCount");
 //End of run screen
 let summary = document.getElementById("summary");
 let summaryView = document.getElementById("summaryView");
-let totLaps = document.getElementById("totLaps");
 let totTime = document.getElementById("totTime");
+let totLaps = document.getElementById("totLaps");
 let timeMrkr = document.getElementById("timeMrkr");
 let lapMrkr = document.getElementById("lapMrkr");
 let VTList = document.getElementById("my-list");
 
 let interval;
-let running = 0;
+let running = "Start";
 let lapCounter = 0;
 
 let pauseStart = 0;
@@ -46,11 +46,94 @@ let actLapTime = new Array();
 
 let NUM_ELEMS = 100;
 
+myEnd.text = "Start";
+
 lapCount.text = "0";
 lapTime.text = "00:00";
 
-myEnd.text = "END";
+me.appTimeoutEnabled = false;
 
+
+//Controls what happens when a new lap is marked
+function newLap() {
+  if (running !== "Start") {
+    
+    if (running === "Started") {
+      lapCounter = lapCounter + 1;
+      lapCount.text = lapCounter;
+      //Store then shift the top lap down one
+      history[lapCounter] = Date.now();
+      actLapTime[lapCounter - 1] = history[lapCounter] - history[lapCounter - 1] - pauseLapSum; 
+      pauseLapSum = 0;
+      
+    } else if (running === "Paused"){
+      //End the pause, start the clock and record the differences
+      pauseEnd = Date.now();
+      pauseLapSum = pauseLapSum + (pauseEnd - pauseStart);
+      pauseEnd = 0;
+      pauseStart = 0;
+      pauseTot = pauseTot + pauseLapSum;
+      myEnd.text="Pause"; 
+      running = "Running";
+      //Start the clock loops subtracting pause times
+      interval = setInterval(function() {
+        //Display the main clock
+        lapTime.text = util.minSec(Date.now() - history[0] - pauseTot);      
+      }, 500);    
+      
+    } else if (running === "Running") {
+      //Reset the lap pause time and start a new lap
+      //advance the lap counter
+      lapCounter = lapCounter + 1;
+      lapCount.text = lapCounter;
+      //Store then shift the top lap down one
+      history[lapCounter] = Date.now();
+      actLapTime[lapCounter - 1] = history[lapCounter] - history[lapCounter - 1] - pauseLapSum;
+      //Reset the top lap to 0
+      pauseLapSum = 0;     
+    };
+    
+  } else {
+    console.log("Not yet started");
+  }; 
+} //End of newLap function
+
+
+function topLeft() {
+  //Check to see if the start time has been recorded
+  if (running === "Start") {
+    me.appTimeoutEnabled = false;
+    history[0] = Date.now();
+    actLapTime[0] = 0;
+    myEnd.text="Pause";
+    running = "Started";
+  };
+   
+  //Check for different states and act on them
+  //This only works before a first pause
+  if (running === "Started") {
+    //Run the clocks with no pauses
+    interval = setInterval(function() {
+      //Display the main clock
+      lapTime.text = util.minSec(Date.now() - history[0]);      
+    }, 500);
+    running = "Running";
+  } else if (running === "Running") {
+    //Pauses the clock and record the time
+    clearInterval(interval);
+    pauseStart = Date.now();
+    myEnd.text="End";   
+    running = "Paused";
+  } else if (running === "Paused") {
+    //this ends the running
+    clearInterval(interval);     
+    //Clear the screen
+    mainView.style.display = "none";
+    summary.style.display = "inline";
+      
+    finish();
+  };
+};   //end function topLeft
 
 
 //Resets the watch if stopped to new
@@ -101,46 +184,9 @@ function finish() {
 };
 
 
-//Controls what happens when a new lap is marked
-function newLap() {
-  if (running === 0) {
-    //First press of the Lap Button
-    me.appTimeoutEnabled = false;
-    history[0] = Date.now();
-    actLapTime[0] = 0;
-    running = 1;
-    interval = setInterval(function() {
-      //Display the main clock
-      lapTime.text = util.minSec(Date.now() - history[0]);
-    }, 500); 
-  } else if (running ===1) {
-    //Lap buttun pressed while already running
-
-    //advance the lap counter
-    lapCounter = lapCounter + 1;
-    lapCount.text = lapCounter;
-    
-    //Store then shift the top lap down one
-    history[lapCounter] = Date.now();
-    actLapTime[lapCounter - 1] = history[lapCounter] - history[lapCounter - 1];
-    interval = setInterval(function() {
-    //Display the main clock
-      lapTime.text = util.minSec(Date.now() - history[0]);
-    }, 500);
-  };
-};
-
- 
-// Top Right button is pressed
-function myExit() {
-  mainView.style.display = "none";
-  summary.style.display = "inline";
-  finish();  
-}
-
 
 myEnd.addEventListener("click", (evt) => {
-  myExit();
+  topLeft();
 });
 
 myTouch.addEventListener("click", (evt) => {
